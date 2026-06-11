@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+@theme {
+  /* Color tokens (hex sampled from the Paper design) */
+  --color-surface: #ffffff;
+  --color-surface-gray: #d8d8d8;
+  --color-surface-violet: #d9d7da;
+  --color-ink: #000000;
+  --color-ink-soft: #202020;
+  --color-ink-invert: #ffffff;
+
+  /* Font families (wired to next/font local variables) */
+  --font-display: var(--font-display);
+  --font-label: var(--font-label);
+  --font-body: var(--font-body);
+
+  /* Page composition */
+  --page-max: 480px;
+}
+
+:root {
+  --scrim: rgba(0, 0, 0, 0.1);
+  /* Idle inset for the Shop the look lock stage, before it pins and goes
+     full-bleed (100vw/100vh). Centralized so the 10px margin stays consistent. */
+  --stl-inset: 10px;
+  /* How much of ProductIntro is visible while the hero video is still on-screen. */
+  --intro-peek-height: clamp(200px, 20svh, 440px);
+  /* Sticky hero media must fill viewport; extra scroll distance is handled by
+     --hero-pin-distance on the hero section height calculation. */
+  --hero-viewport-height: 100svh;
+  /* Additional scroll distance while sticky media stays in view. */
+  --hero-pin-distance: 75svh;
+  /* Pull ProductIntro up by pin distance + desired visible peek. */
+  --intro-overlap-height: calc(var(--hero-pin-distance) + var(--intro-peek-height));
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  background: var(--color-surface-gray);
+}
+
+body {
+  background: var(--color-surface-gray);
+  color: var(--color-ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* The page is a mobile-first column. Desktop layout comes later. */
+.page-shell {
+  width: 100%;
+  max-width: var(--page-max);
+  margin-inline: auto;
+  background: var(--color-surface);
+  overflow-x: clip;
+}
+
+/* Display type: tight, editorial, magazine-cover leading */
+.font-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.07em;
+}
+
+.font-label {
+  font-family: var(--font-label), system-ui, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+/* Elements that animate in start hidden, then GSAP reveals them. */
+.reveal-init {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* No-JS visitors (scripting disabled) never run GSAP, so show content as-is. */
+@media (scripting: none) {
+  .reveal-init {
+    opacity: 1;
+  }
+}
+
+/* Reduced motion: never hide content behind an animation that will not play. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-init {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Controlled overlap: lets ProductIntro peek while hero is still in view,
+   without reintroducing the large black gap from pin-distance compensation. */
+.product-intro-peek {
+  margin-top: calc(-1 * var(--intro-overlap-height));
+}
+
