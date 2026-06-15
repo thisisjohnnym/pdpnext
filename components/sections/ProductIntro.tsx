@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRef } from "react";
 import { gsap, useGSAP, REVEAL_EASE } from "@/lib/gsap";
-import { product, galleryThumb } from "@/data/product";
+import { useProduct } from "@/components/ProductProvider";
 import { TikTokGlyph } from "@/components/icons";
 
 /**
@@ -52,6 +52,7 @@ function parallaxScrollTrigger(section: HTMLElement) {
 }
 
 export function ProductIntro() {
+  const { product, galleryThumb } = useProduct();
   const sectionRef = useRef<HTMLElement>(null);
   const tiktokRef = useRef<HTMLDivElement>(null);
   const captionRowRef = useRef<HTMLDivElement>(null);

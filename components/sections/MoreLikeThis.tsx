@@ -3,9 +3,10 @@
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
-import { relatedProducts } from "@/data/product";
+import { useProduct } from "@/components/ProductProvider";
 
 export function MoreLikeThis() {
+  const { relatedProducts } = useProduct();
   const sectionRef = useRef<HTMLElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -59,7 +60,7 @@ export function MoreLikeThis() {
     <section
       ref={sectionRef}
       data-testid="more-like-this"
-      className="relative flex h-[100svh] flex-col overflow-hidden bg-surface-gray pb-10 pt-[110px]"
+      className="relative flex h-[100lvh] flex-col overflow-hidden bg-surface-gray pb-10 pt-[110px]"
     >
       <h2 className="px-3 font-display text-[clamp(48px,15vw,60px)] text-ink">
         <span className="block">More like</span>

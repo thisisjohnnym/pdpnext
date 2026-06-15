@@ -39,6 +39,9 @@ yarn-error.log*
 .verify.log
 .cursor/debug-*.log
 
+# golive command local config + deploy log
+.golive.md
+
 # env files (can opt-in for committing if needed)
 .env*
 

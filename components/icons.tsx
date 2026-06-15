@@ -115,3 +115,28 @@ export function CloseIcon(props: IconProps) {
     </svg>
   );
 }
+
+export function BagIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <path d="M6 7h12l1 13H5L6 7Z" />
+      <path d="M9 7V5.5a3 3 0 0 1 6 0V7" />
+    </svg>
+  );
+}
+
+export function CheckIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <path d="m5 12.5 4.5 4.5L19 7" />
+    </svg>
+  );
+}
+
+export function PlusIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <path d="M12 5v14M5 12h14" />
+    </svg>
+  );
+}

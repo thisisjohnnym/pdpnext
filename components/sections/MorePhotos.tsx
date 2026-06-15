@@ -3,7 +3,8 @@
 import Image from "next/image";
 import { useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
-import { morePhotos, type Photo } from "@/data/product";
+import { useProduct } from "@/components/ProductProvider";
+import type { Photo } from "@/data/types";
 import { Reveal } from "@/components/Reveal";
 
 function PhotoCell({ photo, delay = 0 }: { photo: Photo; delay?: number }) {
@@ -15,6 +16,7 @@ function PhotoCell({ photo, delay = 0 }: { photo: Photo; delay?: number }) {
 }
 
 export function MorePhotos() {
+  const { morePhotos } = useProduct();
   const sectionRef = useRef<HTMLElement>(null);
   const colTwoRef = useRef<HTMLDivElement>(null);
 

@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { threeSixty } from "@/data/product";
+import { useProduct } from "@/components/ProductProvider";
 import { Reveal } from "@/components/Reveal";
 
 export function ThreeSixtyView() {
+  const { threeSixty } = useProduct();
   return (
     <section
       data-testid="three-sixty"
