@@ -1,11 +1,12 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { tiktokVideos, product } from "@/data/product";
+import { useProduct } from "@/components/ProductProvider";
 import { CommentIcon, HeartIcon, PlayIcon, SaveIcon } from "@/components/icons";
 import { OverlayPlaceholder } from "@/components/OverlayPlaceholder";
 
 export function Hero() {
+  const { tiktokVideos, product } = useProduct();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [overlay, setOverlay] = useState<string | null>(null);
 

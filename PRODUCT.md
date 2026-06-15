@@ -30,7 +30,8 @@ section is a composed editorial moment, not a reusable dashboard widget.
 
 ## Anti-references
 
-- Generic Shopify/SaaS PDP: spec tables, star ratings, sticky "Add to cart" bars.
+- Generic Shopify/SaaS PDP: spec tables, star ratings. (A sticky "Add to cart"
+  bar is expected and encouraged here – it's a core part of the product page.)
 - Identical card grids with icon + heading + body repeated down the page.
 - Hero-metric template (big number, small label, supporting stats).
 - Glassmorphism, gradient text, drop-shadow soup.

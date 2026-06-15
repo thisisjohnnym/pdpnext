@@ -3,14 +3,14 @@
 import Image from "next/image";
 import { useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
-import { shopTheLook } from "@/data/product";
+import { useProduct } from "@/components/ProductProvider";
 import { ChevronUpIcon } from "@/components/icons";
 import { Reveal } from "@/components/Reveal";
 
 /**
  * Depth tuning for the locked stage. The media leads the scroll while the
  * headline drifts up slowly, so the headline appears to recede and tuck behind
- * the media. Same scroll-speed language as the product-intro-peek parallax.
+ * the media. Same scroll-speed language as the ProductIntro parallax.
  */
 const HEADLINE_TUCK_PERCENT = -40;
 
@@ -21,6 +21,7 @@ const STL_INSET = 10;
 const MEDIA_IDLE_TOP = "30%";
 
 export function ShopTheLook() {
+  const { shopTheLook } = useProduct();
   const sectionRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
@@ -89,7 +90,7 @@ export function ShopTheLook() {
       <div
         ref={stageRef}
         data-testid="stl-stage"
-        className="relative h-[100svh] w-full overflow-hidden"
+        className="relative h-[100lvh] w-full overflow-hidden"
       >
         <h2
           ref={headlineRef}
