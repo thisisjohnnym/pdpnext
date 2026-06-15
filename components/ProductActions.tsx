@@ -65,19 +65,61 @@ export function ProductActions() {
           : "transform 700ms cubic-bezier(0.16,1,0.3,1), opacity 700ms ease-out",
       }}
     >
-      {/* Soft progressive blur + tint fade behind the group, masked to fade
-          out upward so it separates the CTAs from busy page content without a
-          hard plate edge. Purely decorative; never intercepts pointer events. */}
+      {/* True progressive blur behind the group: several stacked layers, each a
+          stronger backdrop-filter masked into an overlapping band, so sharpness
+          ramps from clear (top) to fully blurred (bottom edge by the CTAs)
+          rather than a single uniform blur fading its opacity. Plus a surface
+          tint to separate the CTAs from busy page content. Purely decorative;
+          never intercepts pointer events. (0% = top of region, 100% = bottom.) */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[150px] bg-gradient-to-t from-surface/55 via-surface/15 to-transparent"
-        style={{
-          maskImage: "linear-gradient(to top, black 40%, transparent)",
-          WebkitMaskImage: "linear-gradient(to top, black 40%, transparent)",
-          backdropFilter: "blur(8px)",
-          WebkitBackdropFilter: "blur(8px)",
-        }}
-      />
+        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[150px]"
+      >
+        {[
+          {
+            blur: 1,
+            mask:
+              "linear-gradient(rgba(0,0,0,0), rgba(0,0,0,1) 10%, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 40%)",
+          },
+          {
+            blur: 2,
+            mask:
+              "linear-gradient(rgba(0,0,0,0) 10%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 50%)",
+          },
+          {
+            blur: 4,
+            mask:
+              "linear-gradient(rgba(0,0,0,0) 15%, rgba(0,0,0,1) 30%, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 60%)",
+          },
+          {
+            blur: 8,
+            mask:
+              "linear-gradient(rgba(0,0,0,0) 20%, rgba(0,0,0,1) 40%, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 70%)",
+          },
+          {
+            blur: 16,
+            mask:
+              "linear-gradient(rgba(0,0,0,0) 40%, rgba(0,0,0,1) 60%, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 90%)",
+          },
+          {
+            blur: 32,
+            mask: "linear-gradient(rgba(0,0,0,0) 60%, rgba(0,0,0,1) 80%)",
+          },
+        ].map((layer, i) => (
+          <div
+            key={i}
+            className="absolute inset-0"
+            style={{
+              backdropFilter: `blur(${layer.blur}px)`,
+              WebkitBackdropFilter: `blur(${layer.blur}px)`,
+              maskImage: layer.mask,
+              WebkitMaskImage: layer.mask,
+            }}
+          />
+        ))}
+        {/* Surface tint + edge fade to hide the soft-edge scroll glitch. */}
+        <div className="absolute inset-0 bg-gradient-to-t from-surface/55 via-surface/15 to-transparent" />
+      </div>
       <button
         type="button"
         onClick={() => setOpenSheet("bag")}
